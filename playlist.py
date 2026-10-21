@@ -2,7 +2,7 @@
 def menu():
     '''display options for user'''
 
-    print("1. View all songs")
+    print("\n1. View all songs")
     print("2. Add new song to collection")
     print("3. Remove song from collection")
     print("4. Create Playlist")
@@ -13,8 +13,12 @@ def display_collection():
 
     print(f"\n{'ID':4} {'Song Title':30} {'Artist':30} {'Song Length':5} ")
     print("="*79)
+
     for i in range (len(song_collection)):
-        print(f"{i+1 } {song_collection[i][0]:30} {song_collection[i][1]:36} {song_collection[i][2]:5}")
+        min=song_collection[i][2]//60
+        sec=song_collection[i][2]%60/100
+        num=min+sec
+        print(f"{i+1 } {song_collection[i][0]:30} {song_collection[i][1]:36} {num}")
 
 def add_song():
     '''add new song to collectio '''
@@ -22,19 +26,48 @@ def add_song():
     print("\nADD NEW SONG")
     title = check("Song Title: ", "string")
     artist = check("Song Artist: ", "string")
-    length = check("Song Length: ", "integer")
-    song_collection.append([title, artist, length])
+    length = check("Song Length(in mins): ", "integer")
+    convert_min=length//1*60
+    convert_sec=length%1*100
+    new_length=convert_min+convert_sec
+    song_collection.append([title, artist, new_length])
 
 def remove_song():
     '''remove a song from the collection'''
     print("\nREMOVE A SONG")
     choice= check("Song ID: ", "integer", len(song_collection))
     del_song = choice-1
+    print(del_song)
     del song_collection[del_song]
 
-def playlist():
+def create_playlist():
     '''create a playlist'''
 
+    print("A playlist must have at least 10 songs")
+    print("Enter the ID of the song you want to add to your playlist")
+    make_playlist=True
+    while make_playlist==True:
+
+        ghg=int(input("ID: "))
+        i=ghg-1
+        playlist.append(song_collection[i])
+        if len(playlist)>9:
+            print("playlist is long enough \n1.add more songs \n2.finish")
+            pp=int(input(": "))
+            if pp==2:
+                make_playlist=False
+
+
+def display_playlist():
+    '''Display all the songs in the playlist in a fomatted list'''
+
+    print(f"\n{'ID':4} {'Song Title':30} {'Artist':30} {'Song Length':5} ")
+    print("="*79)
+    for i in range (len(playlist)):
+        min=playlist[i][2]//60
+        sec=playlist[i][2]%60/100
+        num=min+sec
+        print(f"{i+1 } {playlist[i][0]:30} {playlist[i][1]:36} {num}")
 
 
 def check(question, t, m=1000):
@@ -45,7 +78,7 @@ def check(question, t, m=1000):
         i=input(question)
         if t=="integer":
             try:
-                i=int(i)
+                i=float(i)
                 if i<1 or i>m:
                     print("!!ENTER VALID NUMBER!!")
                 else:
@@ -129,7 +162,8 @@ while run == True:
     elif option == 3:
         remove_song()
     elif option == 4:
-        print("PLAYLIST TIME")
+        create_playlist()
+        display_playlist()
     elif option == 5:
         run=False
 print("Goodbye")
@@ -137,5 +171,3 @@ print("Goodbye")
 
 
 
-'''print(210//60)
-print(210%60)'''
