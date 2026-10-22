@@ -11,14 +11,14 @@ def menu():
 def display_collection():
     '''Display all the songs in the collection in a fomatted list'''
 
-    print(f"\n{'ID':4} {'Song Title':30} {'Artist':30} {'Song Length':5} ")
+    print(f"\n{'ID':4} {'Song Title':40} {'Artist':30} {'Song Length':5} ")
     print("="*79)
 
     for i in range (len(song_collection)):
         min=song_collection[i][2]//60
         sec=song_collection[i][2]%60/100
         num=min+sec
-        print(f"{i+1 } {song_collection[i][0]:30} {song_collection[i][1]:36} {num}")
+        print(f"{i+1 } {song_collection[i][0]:40} {song_collection[i][1]:36} {num}")
 
 
 
@@ -49,13 +49,13 @@ def create_playlist():
     make_playlist=True
     while make_playlist==True:
 
-        ghg=int(input("ID: "))
-        i=ghg-1
-        playlist.append(song_collection[i])
+        pick=check("ID: ", "integer", len(song_collection)+1)
+        info=pick-1
+        playlist.append(song_collection[info])
         if len(playlist)>9:
             print("playlist is long enough \n1.add more songs \n2.finish")
-            pp=int(input(": "))
-            if pp==2:
+            continue_option=int(input(": "))
+            if continue_option==2:
                 make_playlist=False
     name=check("Enter a name for the playlist: ", "string")
     print(f"\nPLAYLIST FOR: {name.upper()}")
@@ -64,14 +64,14 @@ def create_playlist():
 def display_playlist():
     '''Display all the songs in the playlist in a fomatted list'''
 
-    print(f"\n{'ID':4} {'Song Title':30} {'Artist':30} {'Song Length':5} ")
+    print(f"\n{'ID':4} {'Song Title':40} {'Artist':30} {'Song Length':5} ")
     print("="*79)
     for i in range (len(playlist)):
         min=playlist[i][2]//60
         sec=playlist[i][2]%60/100
         num=min+sec
 
-        print(f"{i+1 } {playlist[i][0]:30} {playlist[i][1]:36} {num}")
+        print(f"{i+1 } {playlist[i][0]:40} {playlist[i][1]:36} {num}")
 
 
 
