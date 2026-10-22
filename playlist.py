@@ -13,12 +13,13 @@ def display_collection():
 
     print(f"\n{'ID':4} {'Song Title':40} {'Artist':30} {'Song Length':5} ")
     print("="*79)
-
     for i in range (len(song_collection)):
         min=song_collection[i][2]//60
         sec=song_collection[i][2]%60/100
         num=min+sec
         print(f"{i+1 } {song_collection[i][0]:40} {song_collection[i][1]:36} {num}")
+
+
 
 
 
