@@ -20,13 +20,15 @@ def display_collection():
         num=min+sec
         print(f"{i+1 } {song_collection[i][0]:30} {song_collection[i][1]:36} {num}")
 
+
+
 def add_song():
     '''add new song to collectio '''
 
     print("\nADD NEW SONG")
     title = check("Song Title: ", "string")
     artist = check("Song Artist: ", "string")
-    length = check("Song Length(in mins): ", "integer")
+    length = check("Song Length(in mins): ", "float")
     convert_min=length//1*60
     convert_sec=length%1*100
     new_length=convert_min+convert_sec
@@ -37,7 +39,6 @@ def remove_song():
     print("\nREMOVE A SONG")
     choice= check("Song ID: ", "integer", len(song_collection))
     del_song = choice-1
-    print(del_song)
     del song_collection[del_song]
 
 def create_playlist():
@@ -56,6 +57,8 @@ def create_playlist():
             pp=int(input(": "))
             if pp==2:
                 make_playlist=False
+    name=check("Enter a name for the playlist: ", "string")
+    print(f"\nPLAYLIST FOR: {name.upper()}")
 
 
 def display_playlist():
@@ -67,7 +70,13 @@ def display_playlist():
         min=playlist[i][2]//60
         sec=playlist[i][2]%60/100
         num=min+sec
+
         print(f"{i+1 } {playlist[i][0]:30} {playlist[i][1]:36} {num}")
+
+
+
+
+
 
 
 def check(question, t, m=1000):
@@ -76,9 +85,19 @@ def check(question, t, m=1000):
     ask=True
     while ask ==True:
         i=input(question)
-        if t=="integer":
+        if t=="float":
             try:
                 i=float(i)
+                if i<1 or i>m:
+                    print("!!ENTER VALID NUMBER!!")
+                else:
+                    ask=False
+                    return i
+            except ValueError:
+                print("!!enter a number")
+        elif t == "integer":
+            try:
+                i=int(i)
                 if i<1 or i>m:
                     print("!!ENTER VALID NUMBER!!")
                 else:
