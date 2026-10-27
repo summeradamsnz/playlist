@@ -61,6 +61,15 @@ def create_playlist():
     name=check("Enter a name for the playlist: ", "string")
     print(f"\nPLAYLIST FOR: {name.upper()}")
 
+def playlist_length():
+    length=0
+    for i in range (len(playlist)):
+        length=length+(playlist[i][2])
+    min=length//60
+    sec=length%60/100
+    num=min+sec
+    print(f"PLAYLIST LENGTH: {num} mins")
+
 
 def display_playlist():
     '''Display all the songs in the playlist in a fomatted list'''
@@ -71,7 +80,6 @@ def display_playlist():
         min=playlist[i][2]//60
         sec=playlist[i][2]%60/100
         num=min+sec
-
         print(f"{i+1 } {playlist[i][0]:40} {playlist[i][1]:36} {num}")
 
 
@@ -170,7 +178,7 @@ song_collection = [
 
 playlist = [
 ]
-
+length=0
 run=True
 while run == True:
     menu()
@@ -183,6 +191,7 @@ while run == True:
         remove_song()
     elif option == 4:
         create_playlist()
+        playlist_length()
         display_playlist()
     elif option == 5:
         run=False
