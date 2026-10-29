@@ -9,31 +9,33 @@ def menu():
     print("5. Quit")
 
 def display_collection():
-    '''Display all the songs in the collection in a fomatted list'''
+    '''Display all the songs in the collection in a formatted list'''
 
     print(f"\n{'ID':4} {'Song Title':40} {'Artist':30} {'Song Length':5} ")
-    print("="*79)
+    print("="*83)
     for i in range (len(song_collection)):
         min=song_collection[i][2]//60
         sec=song_collection[i][2]%60/100
         num=min+sec
-        print(f"{i+1 } {song_collection[i][0]:40} {song_collection[i][1]:36} {num}")
-
-
-
-
+        print(f"{i+1}.     {song_collection[i][0]:40} {song_collection[i][1]:36} {num}")
 
 def add_song():
-    '''add new song to collectio '''
+    '''add new song to collection '''
+    ask_song=True
+    while ask_song == True:
 
-    print("\nADD NEW SONG")
-    title = check("Song Title: ", "string")
-    artist = check("Song Artist: ", "string")
-    length = check("Song Length(in mins): ", "float")
-    convert_min=length//1*60
-    convert_sec=length%1*100
-    new_length=convert_min+convert_sec
-    song_collection.append([title, artist, new_length])
+        print("\nADD NEW SONG")
+        title = check("Song Title: ", "string")
+        artist = check("Song Artist: ", "string")
+        length = check("Song Length(in mins): ", "float")
+        convert_min=length//1*60
+        convert_sec=length%1*100
+        new_length=convert_min+convert_sec
+        if ([title, artist, new_length]) in song_collection:
+            print("THIS SONG IS ALREADY IN THE COLLECTION")
+        else:
+            ask_song=False
+            song_collection.append([title, artist, new_length])
 
 def remove_song():
     '''remove a song from the collection'''
@@ -53,40 +55,31 @@ def create_playlist():
         pick=check("ID: ", "integer", len(song_collection)+1)
         info=pick-1
         playlist.append(song_collection[info])
-        if len(playlist)>9:
+        length=0
+        for i in range (len(playlist)):
+            length=length+(playlist[i][2])
+        min=length//60
+        sec=length%60/100
+        num=min+sec
+        print(f"PLAYLIST LENGTH: {num} mins")
+        if length==30:
             print("playlist is long enough \n1.add more songs \n2.finish")
-            continue_option=int(input(": "))
+            continue_option=check("ID: ", "integer", 2)
             if continue_option==2:
                 make_playlist=False
     name=check("Enter a name for the playlist: ", "string")
     print(f"\nPLAYLIST FOR: {name.upper()}")
 
-def playlist_length():
-    length=0
-    for i in range (len(playlist)):
-        length=length+(playlist[i][2])
-    min=length//60
-    sec=length%60/100
-    num=min+sec
-    print(f"PLAYLIST LENGTH: {num} mins")
-
-
 def display_playlist():
     '''Display all the songs in the playlist in a fomatted list'''
 
     print(f"\n{'ID':4} {'Song Title':40} {'Artist':30} {'Song Length':5} ")
-    print("="*79)
+    print("="*90)
     for i in range (len(playlist)):
         min=playlist[i][2]//60
         sec=playlist[i][2]%60/100
         num=min+sec
-        print(f"{i+1 } {playlist[i][0]:40} {playlist[i][1]:36} {num}")
-
-
-
-
-
-
+        print(f"{i+1 }    {playlist[i][0]:40} {playlist[i][1]:36} {num}")
 
 def check(question, t, m=1000):
     '''error checking for any inputs'''
@@ -120,7 +113,6 @@ def check(question, t, m=1000):
             else:
                 ask=False
                 return i
-
 
 song_collection = [
     ["Shake it off", "Taylor Swift", 219],
@@ -173,7 +165,6 @@ song_collection = [
     ["Before He Cheats", "Carrie Underwood", 200],
     ["Mr.Brightside", "The Killers", 222],
     ["Baby", "Justin Bieber", 214]
-
 ]
 
 playlist = [
