@@ -42,6 +42,7 @@ def remove_song():
     print("\nREMOVE A SONG")
     choice= check("Song ID: ", "integer", len(song_collection))
     del_song = choice-1
+    print(f"song deleted: {song_collection[del_song][0]}")
     del song_collection[del_song]
 
 def create_playlist():
