@@ -62,13 +62,14 @@ def create_playlist():
         sec=length%60/100
         num=min+sec
         print(f"PLAYLIST LENGTH: {num} mins")
-        if length==30:
+        if length>=min_length:
             print("playlist is long enough \n1.add more songs \n2.finish")
-            continue_option=check("ID: ", "integer", 2)
+            continue_option=check(": ", "integer", 2)
             if continue_option==2:
                 make_playlist=False
     name=check("Enter a name for the playlist: ", "string")
     print(f"\nPLAYLIST FOR: {name.upper()}")
+    print(f"\nTOTAL PLAYLIST LENGTH: {num}mins")
 
 def display_playlist():
     '''Display all the songs in the playlist in a fomatted list'''
@@ -169,7 +170,7 @@ song_collection = [
 
 playlist = [
 ]
-length=0
+min_length=1800
 run=True
 while run == True:
     menu()
@@ -182,7 +183,6 @@ while run == True:
         remove_song()
     elif option == 4:
         create_playlist()
-        playlist_length()
         display_playlist()
     elif option == 5:
         run=False
