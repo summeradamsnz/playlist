@@ -11,13 +11,13 @@ def menu():
 def display_collection():
     '''Display all the songs in the collection in a formatted list'''
 
-    print(f"\n{'ID':4} {'Song Title':40} {'Artist':30} {'Song Length':5} ")
-    print("="*83)
+    print(f"\n{'ID':4}  {'Song Title':40} {'Artist':30} {'Song Length':5} ")
+    print("="*89)
     for i in range (len(song_collection)):
         min=song_collection[i][2]//60
         sec=song_collection[i][2]%60/100
         num=min+sec
-        print(f"{i+1}.     {song_collection[i][0]:40} {song_collection[i][1]:36} {num}")
+        print(f"{i+1:<4}  {song_collection[i][0]:40} {song_collection[i][1]:36} {num}")
 
 def add_song():
     '''add new song to collection '''
@@ -27,11 +27,15 @@ def add_song():
         print("\nADD NEW SONG")
         title = check("Song Title: ", "string")
         artist = check("Song Artist: ", "string")
-        length = check("Song Length(in mins): ", "float")
+        length = check("Song Length(in mins): ", "float", 60)
         convert_min=length//1*60
         convert_sec=length%1*100
         new_length=convert_min+convert_sec
-        if ([title, artist, new_length]) in song_collection:
+        check_song=True
+        for song in song_collection:
+            if song[0].lower()==title.lower() and song[1].lower()==artist.lower() and song[2]==new_length:
+                check_song=False
+        if check_song ==False:
             print("THIS SONG IS ALREADY IN THE COLLECTION")
         else:
             ask_song=False
@@ -92,7 +96,7 @@ def check(question, t, m=1000):
         if t=="float":
             try:
                 i=float(i)
-                if i<1 or i>m:
+                if i<0 or i%1*100 >=60:
                     print("!!ENTER VALID NUMBER!!")
                 else:
                     ask=False
@@ -166,7 +170,8 @@ song_collection = [
     ["Party In The U.S.A", "Miley Cyrus", 202],
     ["Before He Cheats", "Carrie Underwood", 200],
     ["Mr.Brightside", "The Killers", 222],
-    ["Baby", "Justin Bieber", 214]
+    ["Baby", "Justin Bieber", 214],
+    ["Closing Time", "Semisonic", 273]
 ]
 
 playlist = [
