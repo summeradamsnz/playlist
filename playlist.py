@@ -27,7 +27,7 @@ def add_song():
         print("\nADD NEW SONG")
         title = check("Song Title: ", "string")
         artist = check("Song Artist: ", "string")
-        length = check("Song Length(in mins): ", "float", 60)
+        length = check("Song Length(in mins.secs): ", "float", 60)
         convert_min=length//1*60
         convert_sec=length%1*100
         new_length=convert_min+convert_sec
@@ -79,13 +79,13 @@ def create_playlist():
 def display_playlist():
     '''Display all the songs in the playlist in a fomatted list'''
 
-    print(f"\n{'ID':4} {'Song Title':40} {'Artist':30} {'Song Length':5} ")
+    print(f"\n{'ID':4}  {'Song Title':40} {'Artist':30} {'Song Length':5} ")
     print("="*90)
     for i in range (len(playlist)):
         min=playlist[i][2]//60
         sec=playlist[i][2]%60/100
         num=min+sec
-        print(f"{i+1 }    {playlist[i][0]:40} {playlist[i][1]:36} {num}")
+        print(f"{i+1:<4}  {playlist[i][0]:40} {playlist[i][1]:36} {num}")
 
 def check(question, t, m=1000):
     '''error checking for any inputs'''
@@ -96,7 +96,7 @@ def check(question, t, m=1000):
         if t=="float":
             try:
                 i=float(i)
-                if i<0 or i%1*100 >=60:
+                if i<=0 or i%1*100 >=60:
                     print("!!ENTER VALID NUMBER!!")
                 else:
                     ask=False
