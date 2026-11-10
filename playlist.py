@@ -75,8 +75,8 @@ def create_playlist():
     print("Enter the ID of the song you want to add to your playlist")
     make_playlist=True
     while make_playlist==True:
-        #asking for Id of song they want tot add to playlist
-        pick=check("ID: ", "integer", len(song_collection)+1)
+        #asking for Id of song they want to add to playlist
+        pick=check("ID: ", "integer", len(song_collection))
         #delete one of the number to get the correct one from the list (list starts at 0 not 1)
         info=pick-1
         #adding song to playlist
@@ -93,7 +93,7 @@ def create_playlist():
         #displaying how long the playlist is at the moment
         print(f"PLAYLIST LENGTH: {num} mins")
         #checking if the playlist is long enough
-        if length>=min_length:
+        if length>=MIN_LENGTH:
             #giving user the option to add more songs even if the playlist is long enough
             print("playlist is long enough \n1.add more songs \n2.finish")
             #asking for users choice
@@ -116,18 +116,20 @@ def display_playlist():
     print("="*90)
     #displaying the data
     for i in range (len(playlist)):
-        #calculating the length from seconds to minutes
+        #converting the length from seconds to minutes
         min=playlist[i][2]//60
         sec=playlist[i][2]%60/100
         num=min+sec
         print(f"{i+1:<4}  {playlist[i][0]:40} {playlist[i][1]:36} {num}")
 
+
 def check(question, t, m=1000):
-    '''error checking for any inputs'''
+    '''error checking for any inputs'''\
 
     ask=True
     while ask ==True:
         i=input(question)
+        #checking the song length (also checks if the seconds does not exceed 60 seconds)
         if t=="float":
             try:
                 i=float(i)
@@ -139,6 +141,7 @@ def check(question, t, m=1000):
                     return i
             except ValueError:
                 print("!!enter a number")
+        #checking integers entered and that they are within the correct bounds for the question
         elif t == "integer":
             try:
                 i=int(i)
@@ -149,6 +152,7 @@ def check(question, t, m=1000):
                     return i
             except ValueError:
                 print("!!enter a number")
+        #making sure any text entered is not blank
         elif t =="string":
             if i.strip()== "":
                 print("enter something")
@@ -213,7 +217,7 @@ song_collection = [
 playlist = [
 ]
 #setting a minimum length for the playlist(in seconds)
-min_length=1800
+MIN_LENGTH=1800
 #run the program
 run=True
 while run == True:
